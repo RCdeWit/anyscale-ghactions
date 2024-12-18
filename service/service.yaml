@@ -1,7 +1,7 @@
 name: basic-service
 image_uri: 'anyscale/ray:2.39.0-slim-py312'
 compute_config: 'small-head-node-only:2'
-cloud: {{ vars.CLOUD_NAME}}
+cloud: rob-aws-eucentral1
 ray_version: 2.39.0
 query_auth_token_enabled: false
 applications:
