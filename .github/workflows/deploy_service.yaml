@@ -1,0 +1,27 @@
+name: Deploy Service to Anyscale
+
+on:
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set Environment Name
+        id: set-env
+        run: |
+          ENVIRONMENT_NAME=${{ github.ref_name }}
+          echo "Environment name set to: $ENVIRONMENT_NAME"
+          echo "CLOUD_NAME=$ENVIRONMENT_NAME" >> $GITHUB_ENV
+
+      - name: Deploy service to Anyscale
+        env:
+          CLOUD_NAME: ${{ env.CLOUD_NAME }}
+        run: |
+          export ANYSCALE_HOST=https://console.anyscale.com
+          export ANYSCALE_CLI_TOKEN=${{ secrets.ANYSCALE_CLI_TOKEN }}
+          anyscale service deploy -f service/service.yaml
