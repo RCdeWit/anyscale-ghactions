@@ -11,6 +11,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install Anyscale CLI
+        run: |
+          python -m pip install --upgrade pip
+          pip install anyscale
+
       - name: Set Environment Name
         id: set-env
         run: |
